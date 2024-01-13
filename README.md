@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 프로젝트 매니저
 
-## Getting Started
+## usePathname
 
-First, run the development server:
+- 현재의 pathname을 갖게된다. react의 usematch랑 비슷한 훅인듯?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+  const currentPath = usePathname();
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 프리즈마 세팅
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- mysql 깔려있어야함
+- npm i prisma
+- npx prisma init
+- prisma파일에서 mysql로 변경 .. .env파일에서 mysql로변경/아디/비번/포트번호/워크벤치명
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 모델생성
 
-## Learn More
+```
+model Issue {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  description String   @db.Text
+  status      Status   @default(OPEN)
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
+enum Status {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+- npx prisma format
+- npx prisma migrate dev
+  Create issue model
+- req를 통해 넘어온 데이터 검증 npm i zod
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- prisma/client.ts 복붙
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+import { PrismaClient } from '@prisma/client'
 
-## Deploy on Vercel
+const prismaClientSingleton = () => {
+  return new PrismaClient()
+}
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+declare global {
+  var prisma: undefined | ReturnType<typeof prismaClientSingleton>
+}
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+const prisma = globalThis.prisma ?? prismaClientSingleton()
+
+export default prisma
+
+if (process.env.NODE_ENV !== 'production') globalThis.prisma = prisma
+```
+
+# Radix
+
+Radix-UI
+
+- npm install @radix-ui/themes
+- https://www.radix-ui.com/
+  Radix-UI Button Component
+- https://www.radix-ui.com/themes/docs/components/button
+
+```
+import '@radix-ui/themes/styles.css';
+```
+
+- 전역 layout.tsx에붙이기
