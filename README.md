@@ -72,3 +72,13 @@ import '@radix-ui/themes/styles.css';
 ```
 
 - 전역 layout.tsx에붙이기
+
+# 마크다운에디터추가
+
+- npm install --save react-simplemde-editor easymde
+
+```
+import SimpleMdeReact from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
+      <SimpleMdeReact />;
+```
