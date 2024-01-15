@@ -6,7 +6,7 @@ import "easymde/dist/easymde.min.css";
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Spinner from "@/app/components/spinner";
+import Spinner from "@/app/components/Spinner";
 
 interface IuseFrom {
   title: String;
@@ -15,19 +15,20 @@ interface IuseFrom {
 
 const page = () => {
   const router = useRouter();
-  const [spinner, Setpinner] = useState(false);
+  const [toggleSpinner, setToggleSpinner] = useState(false);
   const { handleSubmit, register, control, setValue } = useForm<IuseFrom>();
   const onValid = (data: IuseFrom) => {
     console.log(data);
-    Setpinner(true);
+    setToggleSpinner(true);
     setValue("title", "");
     setValue("description", "");
     axios
       .post("/api/issues", data)
       .then()
       .catch((err) => console.log(err));
-    Setpinner(false);
-    /*     router.push("/"); */
+    setToggleSpinner(false);
+    alert("작성완료! ^_^");
+    router.push("/issues");
   };
 
   return (
@@ -48,8 +49,12 @@ const page = () => {
         )}
       />
 
-      <Button disabled={spinner} type="submit" variant="classic" highContrast>
-        create new issue {spinner && <Spinner />}
+      <Button
+        disabled={toggleSpinner}
+        type="submit"
+        variant="classic"
+        highContrast>
+        create new issue {toggleSpinner && <Spinner />}
       </Button>
     </form>
   );

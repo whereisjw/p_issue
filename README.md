@@ -76,9 +76,22 @@ import '@radix-ui/themes/styles.css';
 # 마크다운에디터추가
 
 - npm install --save react-simplemde-editor easymde
+- npm i react-markdown
+- npm i -D @tailwindcss/typography (플러그인에써야함)
 
 ```
 import SimpleMdeReact from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
       <SimpleMdeReact />;
 ```
+
+# tailwind 스피너 추가
+
+https://tw-elements.com/docs/standard/components/spinners/
+
+# 로딩스켈레톤 추가하기
+
+- npm i delay
+- 로딩테스트를위해 추가
+- npm i react-loading-skeleton
+  https://www.npmjs.com/package/react-loading-skeleton
