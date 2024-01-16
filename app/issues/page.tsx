@@ -1,8 +1,8 @@
 import { Button, Table } from "@radix-ui/themes";
-import Link from "next/link";
 import React from "react";
-import prisma, { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import TableBadge from "../components/TableBadge";
+import Link from "../components/Link";
 
 const page = async () => {
   const prisma = new PrismaClient();

@@ -1,8 +1,21 @@
+import Link from "@/app/components/Link";
 import { PrismaClient } from "@prisma/client";
-import { Badge, Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { Pencil2Icon } from "@radix-ui/react-icons";
+import {
+  Badge,
+  Box,
+  Button,
+  Card,
+  Flex,
+  Grid,
+  Heading,
+  Text,
+} from "@radix-ui/themes";
 import { notFound, useParams } from "next/navigation";
 import React from "react";
 import Markdown from "react-markdown";
+import EditButton from "./EditButton";
+import Detail from "./Detail";
 
 interface Iprops {
   params: { id: string };
@@ -16,18 +29,14 @@ const page = async ({ params }: Iprops) => {
 
   if (!issue) notFound();
   return (
-    <div>
-      <Heading>{issue.title}</Heading>
-
-      <Flex my={"2"} className="space-x-2">
-        <Badge>{issue.status}</Badge>
-        <Text>{issue.createAt.toDateString()}</Text>
-      </Flex>
-      <Card className="prose mt-4">
-        {" "}
-        <Markdown>{issue.description}</Markdown>
-      </Card>
-    </div>
+    <Grid columns={{ initial: "1", md: "2" }} gap={"5"}>
+      <Box>
+        <Detail issue={issue} />
+      </Box>
+      <Box>
+        <EditButton issueId={issue.id} />
+      </Box>
+    </Grid>
   );
 };
 

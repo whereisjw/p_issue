@@ -85,6 +85,14 @@ import "easymde/dist/easymde.min.css";
       <SimpleMdeReact />;
 ```
 
+- next js사용시 lazyloading으로 에러해결
+
+```
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false,
+});
+```
+
 # tailwind 스피너 추가
 
 https://tw-elements.com/docs/standard/components/spinners/
@@ -95,3 +103,5 @@ https://tw-elements.com/docs/standard/components/spinners/
 - 로딩테스트를위해 추가
 - npm i react-loading-skeleton
   https://www.npmjs.com/package/react-loading-skeleton
+
+# npm i @radix-ui/react-icons

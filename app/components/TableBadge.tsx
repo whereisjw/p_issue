@@ -10,8 +10,8 @@ const statusMap: Record<
   { label: string; color: "red" | "violet" | "green" }
 > = {
   OPEN: { label: "OPEN", color: "red" },
-  IN_PROGRESS: { label: "OPEN", color: "red" },
-  CLOSED: { label: "OPEN", color: "red" },
+  IN_PROGRESS: { label: "IN_PROGRESS", color: "violet" },
+  CLOSED: { label: "CLOSED", color: "green" },
 };
 
 const TableBadge = ({ status }: Iprops) => {
