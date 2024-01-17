@@ -5,11 +5,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const prisma = new PrismaClient();
+  const body = req.body;
+  const query = req.query;
   if (req.method === "POST") {
-    const body = req.body;
-    const query = req.query;
-    console.log(body, req.query);
-    const prisma = new PrismaClient();
     const issue = await prisma.issue.findUnique({
       where: {
         id: Number(query.id),
@@ -26,7 +25,22 @@ export default async function handler(
         status: body.status,
       },
     });
-
     return res.json(updateIssue);
+  }
+  if (req.method === "DELETE") {
+    const issue = await prisma.issue.findUnique({
+      where: {
+        id: Number(query.id),
+      },
+    });
+
+    if (!issue)
+      return res.status(404).json({ error: "유효하지 않은 처리입니다." });
+
+    await prisma.issue.delete({
+      where: {
+        id: issue.id,
+      },
+    });
   }
 }

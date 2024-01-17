@@ -34,6 +34,7 @@ const page = () => {
     setToggleSpinner(false);
     alert("작성완료! ^_^");
     router.push("/issues");
+    router.refresh();
   };
 
   return (
