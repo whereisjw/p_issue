@@ -16,6 +16,7 @@ import React from "react";
 import Markdown from "react-markdown";
 import EditButton from "./EditButton";
 import Detail from "./Detail";
+import DeleteIssue from "./DeleteIssue";
 
 interface Iprops {
   params: { id: string };
@@ -29,12 +30,15 @@ const page = async ({ params }: Iprops) => {
 
   if (!issue) notFound();
   return (
-    <Grid columns={{ initial: "1", md: "2" }} gap={"5"}>
-      <Box>
+    <Grid columns={{ initial: "1", md: "4" }} gap={"5"}>
+      <Box className="col-span-3 ">
         <Detail issue={issue} />
       </Box>
       <Box>
-        <EditButton issueId={issue.id} />
+        <div className="flex flex-col   space-y-4">
+          <EditButton issueId={issue.id} />
+          <DeleteIssue issueId={issue.id} />
+        </div>
       </Box>
     </Grid>
   );

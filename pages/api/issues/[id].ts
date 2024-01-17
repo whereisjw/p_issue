@@ -8,7 +8,7 @@ export default async function handler(
   if (req.method === "POST") {
     const body = req.body;
     const query = req.query;
-    console.log(body, req.query)
+    console.log(body, req.query);
     const prisma = new PrismaClient();
     const issue = await prisma.issue.findUnique({
       where: {
@@ -23,6 +23,7 @@ export default async function handler(
       data: {
         title: body.title,
         description: body.description,
+        status: body.status,
       },
     });
 

@@ -21,7 +21,7 @@ const loading = async () => {
             <Skeleton />
           </Text>
         </Flex>
-        <Card className="prose mt-4">
+        <Card className="prose max-w-full mt-4">
           <Skeleton count={5} />
         </Card>
       </Box>

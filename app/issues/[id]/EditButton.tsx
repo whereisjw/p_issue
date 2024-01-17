@@ -9,7 +9,7 @@ interface IProps {
 
 const EditButton = ({ issueId }: IProps) => {
   return (
-    <Button>
+    <Button color="indigo">
       <Pencil2Icon />
       <Link href={`/issues/${issueId}/edit`}>Edit</Link>
     </Button>

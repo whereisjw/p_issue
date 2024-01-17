@@ -1,5 +1,5 @@
 "use client";
-import { Button, TextField } from "@radix-ui/themes";
+import { Button, Flex, RadioGroup, Text, TextField } from "@radix-ui/themes";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 /* import SimpleMDE from "react-simplemde-editor"; */
@@ -21,6 +21,7 @@ interface IProps {
 interface IuseFrom {
   title: string;
   description: string;
+  status: string;
 }
 const EditForm = ({ issue }: { issue?: Issue }) => {
   const router = useRouter();
@@ -42,6 +43,11 @@ const EditForm = ({ issue }: { issue?: Issue }) => {
 
   return (
     <form onSubmit={handleSubmit(onValid)} className="max-w-xl space-y-3">
+      <select {...register("status")}>
+        <option value="OPEN">OPEN</option>
+        <option value="IN_PROGRESS">IN_PROGRESS</option>
+        <option value="CLOSED">CLOSED</option>
+      </select>
       <TextField.Root>
         <TextField.Input
           {...register("title", { required: true, minLength: 2 })}
