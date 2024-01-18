@@ -105,3 +105,54 @@ https://tw-elements.com/docs/standard/components/spinners/
   https://www.npmjs.com/package/react-loading-skeleton
 
 # npm i @radix-ui/react-icons
+
+
+
+# nextauth
+
+- npm i next-auth
+- 파일및 폴더 추가 (공식문서시키는대로)
+- 구글,깃헙,페북등 소셜로그인이용가능
+-  https://console.cloud.google.com/apis/credentials
+- 프리즈마와 사용할거면 adapter 꼭 다운받아야함
+- adapter 받으면 db도 추가해야함 추가하고 마이그레이트 
+- 기본적으로 jwt방식임 이렇게하면 바로 작동잘되고 쿠키에 토큰확인할수있음
+- 로그인 로그아웃 url 공식문서에서 확인할것
+~~~
+
+import NextAuth from "next-auth"
+import prisma from '../../../prisma/client'
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import GithubProvider from "next-auth/providers/github"
+import GoogleProvider from "next-auth/providers/google"
+export const authOptions = {
+  // Configure one or more authentication providers
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_SECRET!,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    })
+    // ...add more providers here
+  ],
+}
+export default NextAuth(authOptions)
+~~~
+- 프로바이더는 바로추가하지말고 client 컴포넌트 만들어서 뿌리기
+~~~
+'use client'
+import { SessionProvider } from 'next-auth/react'
+import React, { PropsWithChildren } from 'react'
+
+const Provider = ({children}:PropsWithChildren) => {
+  return (
+  <SessionProvider>  {children} </SessionProvider>
+  )
+}
+
+export default Provider
+~~~

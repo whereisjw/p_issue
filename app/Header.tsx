@@ -1,4 +1,6 @@
 "use client";
+import { Box } from "@radix-ui/themes";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -6,7 +8,7 @@ import { GiSpikedDragonHead } from "react-icons/gi";
 
 const Header = () => {
   const currentPath = usePathname();
-
+const {status,data:session} = useSession()
   const link = [
     { label: "Dashboard", href: "/" },
     { label: "Issue", href: "/issues" },
@@ -33,6 +35,11 @@ const Header = () => {
             </Link>
           </li>
         ))}
+      
+      <li className="text-gray-400 hover:text-gray-600">
+{status === 'authenticated' && <Link href={'/api/auth/signout'}>Log Out</Link>}
+{status === 'unauthenticated' && <Link href={'/api/auth/signin'}>Log In</Link>}
+      </li>
       </ul>
     </nav>
   );

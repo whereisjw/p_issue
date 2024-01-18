@@ -1,5 +1,5 @@
 "use client";
-import { Button, Flex, RadioGroup, Text, TextField } from "@radix-ui/themes";
+import { Button,   TextField } from "@radix-ui/themes";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 /* import SimpleMDE from "react-simplemde-editor"; */
@@ -39,6 +39,7 @@ const EditForm = ({ issue }: { issue?: Issue }) => {
     setToggleSpinner(false);
     alert("작성완료! ^_^");
     router.push("/issues");
+    router.refresh()
   };
 
   return (

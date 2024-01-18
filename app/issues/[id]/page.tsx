@@ -1,5 +1,6 @@
 import Link from "@/app/components/Link";
-import { PrismaClient } from "@prisma/client";
+/* import { PrismaClient } from "@prisma/client"; */
+import prisma from '../../../prisma/client'
 import { Pencil2Icon } from "@radix-ui/react-icons";
 import {
   Badge,
@@ -23,7 +24,7 @@ interface Iprops {
 }
 
 const page = async ({ params }: Iprops) => {
-  const prisma = new PrismaClient();
+/*   const prisma = new PrismaClient(); */
   const issue = await prisma.issue.findUnique({
     where: { id: Number(params.id) },
   });
