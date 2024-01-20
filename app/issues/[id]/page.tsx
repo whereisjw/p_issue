@@ -18,6 +18,7 @@ import Markdown from "react-markdown";
 import EditButton from "./EditButton";
 import Detail from "./Detail";
 import DeleteIssue from "./DeleteIssue";
+import Charger from "./Charger";
 
 interface Iprops {
   params: { id: string };
@@ -37,6 +38,7 @@ const page = async ({ params }: Iprops) => {
       </Box>
       <Box>
         <div className="flex flex-col   space-y-4">
+          <Charger/>
           <EditButton issueId={issue.id} />
           <DeleteIssue issueId={issue.id} />
         </div>

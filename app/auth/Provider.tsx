@@ -1,11 +1,13 @@
 'use client'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { SessionProvider } from 'next-auth/react'
 import React, { PropsWithChildren } from 'react'
 
-const Provider = ({children}:PropsWithChildren) => {
+const Provider = async ({children}:PropsWithChildren) => {
+  const client = new QueryClient()
   return (
-  <SessionProvider>  {children} </SessionProvider>
-  )
+    <QueryClientProvider  client={client}>
+  <SessionProvider>{children}</SessionProvider></QueryClientProvider>)
 }
 
 export default Provider

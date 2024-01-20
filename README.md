@@ -156,3 +156,12 @@ const Provider = ({children}:PropsWithChildren) => {
 
 export default Provider
 ~~~
+
+
+# middleware 적용
+- root 폴더에  middleware 적용
+~~~
+export { default } from "next-auth/middleware"
+
+export const config = { matcher: ["/issues/new","/issues/[id]/edit"] }
+~~~

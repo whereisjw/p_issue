@@ -1,10 +1,11 @@
 "use client";
-import { Box } from "@radix-ui/themes";
+import { Avatar, Box, Button, DropdownMenu } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { GiSpikedDragonHead } from "react-icons/gi";
+import Spinner from "./components/Spinner";
 
 const Header = () => {
   const currentPath = usePathname();
@@ -35,10 +36,25 @@ const {status,data:session} = useSession()
             </Link>
           </li>
         ))}
-      
       <li className="text-gray-400 hover:text-gray-600">
-{status === 'authenticated' && <Link href={'/api/auth/signout'}>Log Out</Link>}
-{status === 'unauthenticated' && <Link href={'/api/auth/signin'}>Log In</Link>}
+          {status === 'authenticated' && 
+            <DropdownMenu.Root>
+  <DropdownMenu.Trigger>
+     <Avatar className="cursor-pointer"
+     referrerPolicy="no-referrer"
+     radius="full" size='2' src={session?.user!.image!} fallback='?'/> 
+  </DropdownMenu.Trigger>
+  <DropdownMenu.Content>
+    <DropdownMenu.Separator />
+    <DropdownMenu.Item shortcut="⌘ E">{session.user?.email}</DropdownMenu.Item>
+    <DropdownMenu.Separator />
+    <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
+    <Link href={'/api/auth/signout'}>Log Out</Link>
+    </DropdownMenu.Item>
+  </DropdownMenu.Content>
+</DropdownMenu.Root>}
+          {status === 'unauthenticated' && <Link href={'/api/auth/signin'}>Log In</Link>}
+          {status === 'loading' && <Spinner/>}
       </li>
       </ul>
     </nav>

@@ -1,13 +1,17 @@
+ 
 import { Button, Table } from "@radix-ui/themes";
 import React from "react";
 /* import { PrismaClient } from "@prisma/client"; */
 import prisma from '../../prisma/client'
 import TableBadge from "../components/TableBadge";
 import Link from "../components/Link";
+ 
 
 const page = async () => {
 /*   const prisma = new PrismaClient(); */
+ 
   const issues = await prisma.issue.findMany();
+ 
 
   return (
     <div>
