@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Bar, BarChart, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, Legend,  ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 interface props{
     open:number;

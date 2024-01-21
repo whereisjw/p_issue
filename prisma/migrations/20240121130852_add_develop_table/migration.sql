@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `issue` ADD COLUMN `develop` ENUM('FRONT', 'BACK', 'ETC') NOT NULL DEFAULT 'FRONT';
