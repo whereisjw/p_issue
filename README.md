@@ -165,3 +165,74 @@ export { default } from "next-auth/middleware"
 
 export const config = { matcher: ["/issues/new","/issues/[id]/edit"] }
 ~~~
+
+# 필터링 적용하기
+~~~
+'use client'
+import { Status } from '@prisma/client'
+import { Select } from '@radix-ui/themes'
+import { useRouter } from 'next/navigation'
+ 
+import React from 'react'
+
+const statuses:{label:string,value?:Status}[]= [
+    {label:'All'},
+    {label:'open',value:'OPEN'},
+    {label:'IN_PROGRESS',value:'IN_PROGRESS'},
+    {label:'CLOSED',value:'CLOSED'},
+
+]
+interface IProps{
+  values : string
+}
+const StatusFilter = ({values}:IProps) => {
+ 
+
+  const router = useRouter()
+  return (
+<Select.Root
+ defaultValue={values}  
+onValueChange={(value)=>{
+const query = value ? `?value=${value}` : ""
+router.push(`/issues` + query)
+}}>
+  <Select.Trigger placeholder='필터기능'/>
+  <Select.Content>
+     {statuses.map((v,i)=><Select.Item key={i} value={v.value || "All"}>{v.label}</Select.Item>)}
+    <Select.Separator />
+ 
+  </Select.Content>
+</Select.Root>
+  )
+}
+
+export default StatusFilter
+~~~
+
+
+
+# Chart 구현
+
+npm i recharts
+~~~
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+
+const Chart = ({open,inProgress,closed}:props) => {
+let data = 
+[    {label:'OPEN',value:open},
+    {label:'IN_PROGRESS',value:inProgress},
+    {label:'CLOSED',value:closed}]
+
+
+
+  return (
+    <ResponsiveContainer width={'100%'} height={300}>
+        <BarChart data={data} >
+            <XAxis dataKey="label"></XAxis>
+            <YAxis></YAxis>
+            <Bar dataKey="value"></Bar>
+        </BarChart>
+    </ResponsiveContainer>
+  )
+}
+~~~

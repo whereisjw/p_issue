@@ -6,6 +6,7 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse ){
         orderBy:{name:'asc'}
  
     })
+console.log(users);
 
     res.json(users)
 }

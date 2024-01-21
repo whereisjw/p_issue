@@ -5,17 +5,39 @@ import React from "react";
 import prisma from '../../prisma/client'
 import TableBadge from "../components/TableBadge";
 import Link from "../components/Link";
+import StatusFilter from "../components/StatusFilter";
+import { Status } from "@prisma/client";
  
 
-const page = async () => {
-/*   const prisma = new PrismaClient(); */
+interface IProps{
+  searchParams : {value: Status}
+}
+
+const page = async ({searchParams} : IProps) => {
  
-  const issues = await prisma.issue.findMany();
+
+const values =  Object.values(Status).includes(searchParams.value) ?   searchParams.value  : undefined 
+
+ console.log(values);
+ 
+ 
+ 
+  const issues = await prisma.issue.findMany(
+    {
+      where:{
+        status:values
+      },
+      orderBy:{
+        createAt:'desc'
+      }
+    }
+  );
  
 
   return (
     <div>
-      <div className="mb-5 ">
+      <div className="mb-5 flex justify-between">
+        <StatusFilter values={values + ""}/>
         <Button>
           <Link href="/issues/new">new</Link>
         </Button>
