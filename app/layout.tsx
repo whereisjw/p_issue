@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./Header";
 import Provider from "./auth/Provider";
+import Footer from "./Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
         <Theme appearance="light" accentColor="tomato">
           <Header />
           <main  className="p-5 border border-red-500 w-[80vw] mx-auto">{children}</main>
+          <Footer/>
         </Theme>
         </Provider>
       </body>

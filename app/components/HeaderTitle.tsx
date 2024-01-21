@@ -1,10 +1,13 @@
 import { Avatar, Flex } from '@radix-ui/themes'
+import Link from 'next/link'
+ 
 import React from 'react'
+
 
 const HeaderTitle = () => {
   return (
     <div className='  h-[80%] text-white flex flex-col items-center justify-center space-y-4'>
-        <div className='font-bold text-3xl'>CODING STORY</div>
+        <div className='font-bold text-3xl'><Link href={'/'}>CODING STORY</Link></div>
         <div>
         <Flex gap="2">
   <Avatar
