@@ -8,6 +8,7 @@ import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Spinner from "@/app/components/Spinner";
+import { useSession } from "next-auth/react";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
@@ -16,19 +17,26 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 interface IuseFrom {
   title: String;
   description: string;
+  develop:string;
 }
 
 const page = () => {
   const router = useRouter();
+
+  const {status,data:session} = useSession()
+  
   const [toggleSpinner, setToggleSpinner] = useState(false);
   const { handleSubmit, register, control, setValue } = useForm<IuseFrom>();
   const onValid = (data: IuseFrom) => {
-    console.log(data);
-    setToggleSpinner(true);
+  const {title,description,develop} = data
+ 
+  
+     setToggleSpinner(true);
     setValue("title", "");
     setValue("description", "");
+    setValue("develop", "");
     axios
-      .post("/api/issues", data)
+      .post("/api/issues", {title,description:description,develop,writer:session?.user?.name})
       .then()
       .catch((err) => console.log(err));
     setToggleSpinner(false);
@@ -39,10 +47,15 @@ const page = () => {
 
   return (
     <form onSubmit={handleSubmit(onValid)} className="max-w-xl space-y-3">
+       <select {...register("develop")}>
+        <option value="FRONTEND">FRONTEND</option>
+        <option value="BACKEND">BACKEND</option>
+        <option value="ETC">ETC</option>
+      </select>
       <TextField.Root>
         <TextField.Input
           {...register("title", { required: true, minLength: 2 })}
-          placeholder="Search the docs…"
+          placeholder="제목을 입력해주세요"
         />
       </TextField.Root>
 
@@ -51,7 +64,7 @@ const page = () => {
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
-          <SimpleMDE placeholder="Description" {...field} />
+          <SimpleMDE placeholder="내용을 입력해주세요" {...field} />
         )}
       />
 

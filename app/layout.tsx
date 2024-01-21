@@ -30,7 +30,7 @@ export default function RootLayout({
         <Provider>
         <Theme appearance="light" accentColor="tomato">
           <Header />
-          <main  className="p-5 border border-red-500 w-[80vw] mx-auto">{children}</main>
+          <main  className="p-5 border  w-[80vw] mx-auto">{children}</main>
           <Footer/>
         </Theme>
         </Provider>

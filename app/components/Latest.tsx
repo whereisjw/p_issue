@@ -3,6 +3,7 @@ import prisma from '../../prisma/client'
 import React from 'react'
 import Link from 'next/link'
 import TableBadge from './TableBadge'
+import { IoIosMore } from "react-icons/io";
 
 
 const Latest = async () => {
@@ -16,7 +17,7 @@ const Latest = async () => {
   return (
     <>
     <Card>
-        <Heading className='border-b border-b-red-500'>최근글</Heading>
+        <Heading className='border-b-2 border-black  p-2 flex items-center justify-between'><span>최근글</span> <Link href={'/issues'}><IoIosMore/></Link></Heading>
         <Table.Root >
         <Table.Body >
  {issues.map((v,i)=>
@@ -24,7 +25,8 @@ const Latest = async () => {
           <Table.Cell  >
             <Flex direction={'column'} align={'start'} gap={'2'}>
            <Link href={`/issues/${v.id}`}>{v.title}</Link> 
-           <TableBadge status={v.status}/>
+      {/*      <TableBadge status={v.status}/>
+ */}           <TableBadge develop={v.develop}/>
            </Flex>
             </Table.Cell>
         </Table.Row>

@@ -2,22 +2,30 @@
 import React from 'react'
 import { Bar, BarChart, Legend,  ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-interface props{
+/* interface props{
     open:number;
     inProgress:number;
     closed:number;
-}
+} */
+
+ interface props{
+    frontend:number;
+    backend:number;
+    etc:number;
+    
+}  
+
 
 /* {
   OPEN
   IN_PROGRESS
   CLOSED
 } */
-const Chart = ({open,inProgress,closed}:props) => {
+const Chart = ({frontend,backend,etc}:props) => {
 let data = 
-[    {label:'OPEN',value:open},
-    {label:'IN_PROGRESS',value:inProgress},
-    {label:'CLOSED',value:closed}]
+[    {label:'FRONTEND',작성글:frontend},
+    {label:'BACKEND',작성글:backend},
+    {label:'ETC',작성글:etc}]
 
 
 
@@ -27,8 +35,8 @@ let data =
             <XAxis dataKey="label"></XAxis>
             <YAxis></YAxis>
             <Tooltip />
-  <Legend />
-            <Bar barSize={60} dataKey="value" fill="#8884d8"></Bar>
+  <Legend  />
+            <Bar barSize={60} dataKey="작성글" fill="#8884d8"></Bar>
         </BarChart>
      </ResponsiveContainer> 
   )

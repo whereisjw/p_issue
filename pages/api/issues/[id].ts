@@ -22,7 +22,7 @@ export default async function handler(
       data: {
         title: body.title,
         description: body.description,
-        status: body.status,
+        status: body.develop,
       },
     });
     return res.json(updateIssue);

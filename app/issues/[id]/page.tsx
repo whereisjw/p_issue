@@ -1,16 +1,12 @@
-import Link from "@/app/components/Link";
+
 /* import { PrismaClient } from "@prisma/client"; */
 import prisma from '../../../prisma/client'
-import { Pencil2Icon } from "@radix-ui/react-icons";
 import {
-  Badge,
+ 
   Box,
-  Button,
-  Card,
-  Flex,
+ 
   Grid,
-  Heading,
-  Text,
+ 
 } from "@radix-ui/themes";
 import { notFound, useParams } from "next/navigation";
 import React from "react";
@@ -38,9 +34,9 @@ const page = async ({ params }: Iprops) => {
       </Box>
       <Box>
         <div className="flex flex-col   space-y-4">
-          <Charger/>
-          <EditButton issueId={issue.id} />
-          <DeleteIssue issueId={issue.id} />
+
+          <EditButton issueWriter={issue.writer} issueId={issue.id} />
+          <DeleteIssue issueWriter={issue.writer} issueId={issue.id} />
         </div>
       </Box>
     </Grid>

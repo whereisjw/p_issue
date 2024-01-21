@@ -1,31 +1,38 @@
  
-import { Button, Table } from "@radix-ui/themes";
-import React from "react";
+import { Badge, Button, Table } from "@radix-ui/themes";
+import React  from "react";
 /* import { PrismaClient } from "@prisma/client"; */
 import prisma from '../../prisma/client'
 import TableBadge from "../components/TableBadge";
-import Link from "../components/Link";
+import { FaComment } from "react-icons/fa6";
 import StatusFilter from "../components/StatusFilter";
-import { Status } from "@prisma/client";
+import { Develop, Status } from "@prisma/client";
+import Link from "next/link";
+
+import WriteButton from "../components/WriteButton";
  
 
-interface IProps{
+/* interface IProps{
   searchParams : {value: Status}
+}
+ */
+
+interface IProps{
+  searchParams : {value: Develop}
 }
 
 const page = async ({searchParams} : IProps) => {
  
+ 
+const values =  Object.values(Develop).includes(searchParams.value) ?   searchParams.value  : undefined 
 
-const values =  Object.values(Status).includes(searchParams.value) ?   searchParams.value  : undefined 
-
- console.log(values);
  
  
  
   const issues = await prisma.issue.findMany(
     {
       where:{
-        status:values
+        develop:values
       },
       orderBy:{
         createAt:'desc'
@@ -37,43 +44,21 @@ const values =  Object.values(Status).includes(searchParams.value) ?   searchPar
   return (
     <div>
       <div className="mb-5 flex justify-between">
-        <StatusFilter values={values + ""}/>
-        <Button>
-          <Link href="/issues/new">new</Link>
-        </Button>
+<div>        <StatusFilter values={values}/></div>
+<WriteButton/>
       </div>
-      <Table.Root variant="surface">
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Status
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className="hidden md:table-cell">
-              CreateAt
-            </Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {issues.map((v, i) => (
-            <Table.Row key={i}>
-              <Table.RowHeaderCell>
-                <Link href={`/issues/${v.id}`}>{v.title}</Link>
-                <div className="block md:hidden">
-                  {" "}
-                  <TableBadge status={v.status} />
-                </div>
-              </Table.RowHeaderCell>
-              <Table.Cell className="hidden md:table-cell">
-                <TableBadge status={v.status} />
-              </Table.Cell>
-              <Table.Cell className="hidden md:table-cell">
-                {v.createAt.toDateString()}
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table.Root>
+   
+      {issues.map((v,i)=>
+      <div key={i} className="h-32 py-4 px-2 border-t   border-gray-400 space-y-2">
+      <div className="text-xl flex items-center space-x-2"> <TableBadge develop={v.develop} /> <span className="font-semibold"> <Link href={`/issues/${v.id}`}>{v.title}</Link></span></div>
+      <div className="whitespace-nowrap text-lg text-ellipsis overflow-hidden">{v.description}</div>
+      <div className="text-xs text-gray-400 flex items-center justify-between px-2">
+        <div >{v.writer} {v.createAt.toDateString()}</div>
+        <div className="space-x-2 flex items-center"><FaComment/> <span>0</span></div>
+      </div>
+    </div>
+      )}
+            
     </div>
   );
 };

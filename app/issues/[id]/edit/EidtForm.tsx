@@ -14,14 +14,11 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
 });
 
-interface IProps {
-  title: string;
-  description: string;
-}
+ 
 interface IuseFrom {
   title: string;
   description: string;
-  status: string;
+  develop: string;
 }
 const EditForm = ({ issue }: { issue?: Issue }) => {
   const router = useRouter();
@@ -44,10 +41,10 @@ const EditForm = ({ issue }: { issue?: Issue }) => {
 
   return (
     <form onSubmit={handleSubmit(onValid)} className="max-w-xl space-y-3">
-      <select {...register("status")}>
-        <option value="OPEN">OPEN</option>
-        <option value="IN_PROGRESS">IN_PROGRESS</option>
-        <option value="CLOSED">CLOSED</option>
+      <select {...register("develop")}>
+        <option value="FRONTEND">FRONTEND</option>
+        <option value="BACKEND">BACKEND</option>
+        <option value="ETC">ETC</option>
       </select>
       <TextField.Root>
         <TextField.Input

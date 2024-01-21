@@ -15,16 +15,17 @@ model Issue {
   title         String   @db.VarChar(255)
   description   String   @db.Text
   status        Status   @default(OPEN)
-  develop       Develop  @default(FRONT)
+  develop       Develop  @default(FRONTEND)
   createAt      DateTime @default(now())
   updateAt      DateTime @updatedAt
+  writer        String?  @db.VarChar(50)
   charger       String?  @db.VarChar(255)
   chargerToUser User?    @relation(fields: [charger], references: [id])
 }
 
 enum Develop {
-  FRONT
-  BACK
+  FRONTEND
+  BACKEND
   ETC
 }
 

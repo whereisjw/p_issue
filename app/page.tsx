@@ -8,9 +8,9 @@ import { Box, Card, Flex, Grid } from "@radix-ui/themes";
 
 export default async function Home({searchParams}:{searchParams:{page:string}}) {
 
-const open = await prisma.issue.count({where:{status:'OPEN'}})
-const IN_PROGRESS = await prisma.issue.count({where:{status:'IN_PROGRESS'}})
-const CLOSED = await prisma.issue.count({where:{status:'CLOSED'}})
+const FRONTEND = await prisma.issue.count({where:{develop:'FRONTEND'}})
+const BACKEND = await prisma.issue.count({where:{develop:'BACKEND'}})
+const ETC = await prisma.issue.count({where:{develop:'ETC'}})
 
 
   return <> 
@@ -24,8 +24,9 @@ const CLOSED = await prisma.issue.count({where:{status:'CLOSED'}})
 
 
 <Card>
-  <Grid columns={{initial:'1', md:'2'}}><Flex direction={'column'} gap={'4'}><Summary open={open }inProgress={IN_PROGRESS}closed={CLOSED}/>
-  <Chart open={open }inProgress={IN_PROGRESS}closed={CLOSED}/></Flex><Latest/></Grid>
+  <Grid columns={{initial:'1', md:'2'}}><Flex align={'center'} direction={'column'} gap={'4'}>
+    <Summary frontend={FRONTEND }backend={BACKEND}etc={ETC}/>
+  <Chart frontend={FRONTEND }backend={BACKEND}etc={ETC}/></Flex><Latest/></Grid>
   </Card>
   </>;
 }

@@ -21,7 +21,7 @@ if (error) return null;
   <Select.Trigger placeholder='charger'/>
   <Select.Content>
     <Select.Group>
-      <Select.Label>유저이름</Select.Label>
+     
     {usersData?.map((value:User,index:number)=>
     <Select.Item key={index} value={value.id}>{value.name}</Select.Item>
     )}

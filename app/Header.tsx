@@ -17,7 +17,7 @@ const {status,data:session} = useSession()
     { label: "list", href: "/issues" },
   ];
   return (
-    <nav    className="bg-center border border-red-800 space-x-6 mb-5 px-5     h-[45vh] bg-[url('https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGNvZGluZ3xlbnwwfHwwfHx8MA%3D%3D')]">
+    <nav    className="bg-center  space-x-6 mb-5 px-5     h-[45vh] bg-[url('https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGNvZGluZ3xlbnwwfHwwfHx8MA%3D%3D')]">
       <div className="pt-3 flex justify-between">
       <Link
         href={"/"}

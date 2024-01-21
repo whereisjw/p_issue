@@ -1,13 +1,16 @@
 "use client";
 import { AlertDialog, Button, Flex, Link } from "@radix-ui/themes";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 interface IProps {
   issueId: number;
+  issueWriter:string|null;
 }
 
-const DeleteIssue = ({ issueId }: IProps) => {
+const DeleteIssue = ({ issueId,issueWriter }: IProps) => {
+  const {data:session} =useSession()
   const router = useRouter();
   const onClickDeleteFn = () => {
     axios.delete(`/api/issues/${issueId}`);
@@ -17,7 +20,8 @@ const DeleteIssue = ({ issueId }: IProps) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button color="red">Delete Button</Button>
+      {issueWriter !== session?.user?.name ? <Button disabled color="red">Delete Button</Button> :  <Button color="red">Delete Button</Button>}
+       
       </AlertDialog.Trigger>
       <AlertDialog.Content style={{ maxWidth: 450 }}>
         <AlertDialog.Title>Delete</AlertDialog.Title>

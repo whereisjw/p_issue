@@ -13,16 +13,23 @@ const createIssueSchema = z.object({
 interface Idata {
   title: String;
   description: String;
+  develop:string;
+ 
 }
 export default async function POST(req: NextRequest, res: NextResponse) {
   if (req.method === "POST") {
-    let { title, description }: any = req.body;
-    let result = await prisma.issue.create({
+    let { title, description,develop,writer }: any = req.body;
+    console.log(req.body);
+        let result = await prisma.issue.create({
       data: {
         title: title,
         description: description,
+        develop:develop,
+        writer:writer,
+ 
       },
-    });
+    });  
     console.log(result);
+    
   } //post
 }
