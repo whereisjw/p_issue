@@ -8,6 +8,8 @@ export default async function handler(
   const prisma = new PrismaClient();
   const body = req.body;
   const query = req.query;
+
+  
   if (req.method === "POST") {
     const issue = await prisma.issue.findUnique({
       where: {
@@ -22,7 +24,7 @@ export default async function handler(
       data: {
         title: body.title,
         description: body.description,
-        status: body.develop,
+        develop: body.develop,
       },
     });
     return res.json(updateIssue);
