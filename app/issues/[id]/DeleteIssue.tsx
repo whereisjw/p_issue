@@ -20,7 +20,8 @@ const DeleteIssue = ({ issueId,issueWriter }: IProps) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-      {issueWriter !== session?.user?.name ? <Button disabled color="red">Delete Button</Button> :  <Button color="red">Delete Button</Button>}
+      {issueWriter !== session?.user?.name ? <button disabled className="bg-red-500 rounded-md shadow-sm text-white p-1">Delete Button</button> : 
+       <button className="bg-red-500 rounded-md shadow-sm text-white p-1">Delete Button</button>}
        
       </AlertDialog.Trigger>
       <AlertDialog.Content style={{ maxWidth: 450 }}>
@@ -31,17 +32,16 @@ const DeleteIssue = ({ issueId,issueWriter }: IProps) => {
 
         <Flex gap="3" mt="4" justify="end">
           <AlertDialog.Cancel>
-            <Button variant="soft" color="gray">
+            <button className="bg-gray-500 text-white py-1 px-2 shadow-sm rounded-md text-sm">
               Cancel
-            </Button>
+            </button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button
+            <button
               onClick={() => onClickDeleteFn()}
-              variant="solid"
-              color="red">
-              Okay Got it!
-            </Button>
+             className="bg-red-500 text-white py-1 px-2 rounded-md shadow-sm  text-sm">
+              삭제할게요
+            </button>
           </AlertDialog.Action>
         </Flex>
       </AlertDialog.Content>

@@ -10,6 +10,7 @@ import { Develop, Status } from "@prisma/client";
 import Link from "next/link";
 
 import WriteButton from "../components/WriteButton";
+import { Metadata } from "next";
  
 
 /* interface IProps{
@@ -64,3 +65,9 @@ const values =  Object.values(Develop).includes(searchParams.value) ?   searchPa
 };
 
 export default page;
+
+
+export const metadata: Metadata = {
+  title:'CODING-STORY - List',
+  description:'코딩커뮤니티 목록페이지 입니다'
+}

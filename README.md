@@ -1,4 +1,4 @@
-# 프로젝트 매니저
+# 코딩커뮤니티
 
 ## usePathname
 
@@ -234,5 +234,46 @@ let data =
         </BarChart>
     </ResponsiveContainer>
   )
+}
+~~~
+
+
+
+# 메타데이터 추가
+export const metadata: Metadata = {
+  title:'CODING-STORY - HOME',
+  description:'코딩커뮤니티 홈입니다'
+}
+- 동적 메타데이터 추가
+~~~
+export async function generateMetadata({ params }: Iprops){
+  const issue = await prisma.issue.findUnique({
+    where: { id: Number(params.id) },
+  });
+
+  return {
+    title: issue?.title,
+description : '상세 페이지' + issue?.id
+    }
+}
+~~~
+
+
+# git filter repo 깃필터리포
+- https://github.com/newren/git-filter-repo/tree/main
+
+
+# sentry io
+- 배포전 테스트라우터와 페이지파일 삭제하는거 잊지말기
+
+
+
+# vercel 배포
+
+~~~
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 ~~~

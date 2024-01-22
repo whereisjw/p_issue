@@ -20,6 +20,8 @@ interface Iprops {
   params: { id: string };
 }
 
+
+
 const page = async ({ params }: Iprops) => {
 /*   const prisma = new PrismaClient(); */
   const issue = await prisma.issue.findUnique({
@@ -44,3 +46,14 @@ const page = async ({ params }: Iprops) => {
 };
 
 export default page;
+
+export async function generateMetadata({ params }: Iprops){
+  const issue = await prisma.issue.findUnique({
+    where: { id: Number(params.id) },
+  });
+
+  return {
+    title: issue?.title,
+description : '상세 페이지' + issue?.id
+    }
+}

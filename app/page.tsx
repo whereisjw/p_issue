@@ -3,6 +3,7 @@ import Summary from "./components/Summary";
 import prisma from '../prisma/client'
 import Chart from "./components/Chart";
 import { Box, Card, Flex, Grid } from "@radix-ui/themes";
+import { Metadata } from "next";
  
  
 
@@ -29,4 +30,10 @@ const ETC = await prisma.issue.count({where:{develop:'ETC'}})
   <Chart frontend={FRONTEND }backend={BACKEND}etc={ETC}/></Flex><Latest/></Grid>
   </Card>
   </>;
+}
+
+
+export const metadata: Metadata = {
+  title:'CODING-STORY - HOME',
+  description:'코딩커뮤니티 홈입니다'
 }
