@@ -32,7 +32,7 @@ const ETC = await prisma.issue.count({where:{develop:'ETC'}})
   </>;
 }
 
-
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title:'CODING-STORY - HOME',
   description:'코딩커뮤니티 홈입니다'
